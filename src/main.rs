@@ -9,8 +9,9 @@ fn main() {
 
 //	println!("The secret number is: {}", secret_number);
 
+	let mut num_guesses = 0;
 	loop {
-	    println!("Please input your guess.");
+	    println!("Please input your guess (0-100):");
 
 	    let mut guess = String::new();
 
@@ -23,15 +24,22 @@ fn main() {
 			Err(_) => continue,
 		};
 	    
-	    println!("You guessed: {}", guess);
+//	    println!("You guessed: {}", guess);
 
 	    match guess.cmp(&secret_number) {
 	    	Ordering::Less => println!("Too small!"),
 	    	Ordering::Greater => println!("Too big!"),
 	    	Ordering::Equal => {
 	    		println!("You win!");
+	    		println!("It took you {} guesses to win!", num_guesses);
 				break;
 	    	}
 	    }
+	    num_guesses = num_guesses + 1;
 	}
+    println!("Press enter to exit.");
+    let mut voids = String::new();
+	io::stdin()
+		    	.read_line(&mut voids)
+		    	.expect("Failed to read line.");
 }
